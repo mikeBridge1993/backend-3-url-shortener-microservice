@@ -5,7 +5,7 @@ const {Url} = require("./models/url");
 
 const port = process.env.PORT || 3000;
 
-const type = "http://localhost:3000/" || heroku;
+const type = "https://quiet-hollows-81269.herokuapp.com/" || "http://localhost:3000/";
 
 var app = express();
 
