@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 
 const type = "https://quiet-hollows-81269.herokuapp.com/" || "http://localhost:3000/";
 
+
 var app = express();
 
 app.get('/list', (req, res) => {
@@ -32,13 +33,21 @@ app.get('/:url', (req, res) =>{
 });
 
 app.get('/new/*', (req, res) =>{
- 
-    if (!validUrl.isUri(req.params[0])){
+        
+    var completeUrl = req.params[0];
+
+    Object.keys(req.query).forEach(function(key) {
+        completeUrl += "?"+ key + "=" + req.query[key];
+
+    });
+    
+    
+    if (!validUrl.isUri(completeUrl)){
         res.send({error: "Invalid URL"});
     } 
     
     const url = new Url({
-        longUrl: req.params[0],
+        longUrl: completeUrl,
         shortUrl: type + Math.floor(1000 + (9999 - 1000) * Math.random())
     });
     
